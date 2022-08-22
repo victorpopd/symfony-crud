@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  app:
+    build: ./
+    working_dir: /app/rest_api
+    volumes:
+      - ./:/app
+    links:
+      - db
+    ports:
+      - 127.0.0.1:8089:8000
+
+  db:
+    image: mysql
+    ports:
+      - 127.0.0.1:33066:3306
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: somesecurepwd
+      MYSQL_DATABASE: internship
+      MYSQL_ROOT_HOST: '%'
